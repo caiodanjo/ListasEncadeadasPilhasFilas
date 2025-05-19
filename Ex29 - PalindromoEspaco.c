@@ -6,7 +6,6 @@ typedef struct No {
     struct No* prox;
 } No;
 
-// Função auxiliar para reverter a lista
 No* reverter_lista(No* cabeca) {
     No* anterior = NULL;
     No* atual = cabeca;
@@ -21,21 +20,17 @@ No* reverter_lista(No* cabeca) {
     return anterior;
 }
 
-// Função para verificar se a lista é palíndromo
 int eh_palindromo(No* cabeca) {
     if (cabeca == NULL || cabeca->prox == NULL) return 1;
 
-    // Passo 1: Encontrar o meio
     No *lento = cabeca, *rapido = cabeca;
     while (rapido->prox != NULL && rapido->prox->prox != NULL) {
         lento = lento->prox;
         rapido = rapido->prox->prox;
     }
 
-    // Passo 2: Reverter segunda metade
     No* segunda_metade = reverter_lista(lento->prox);
 
-    // Passo 3: Comparar
     No* p1 = cabeca;
     No* p2 = segunda_metade;
     int eh_palin = 1;
@@ -48,13 +43,11 @@ int eh_palindromo(No* cabeca) {
         p2 = p2->prox;
     }
 
-    // Passo 4: Restaurar a lista original
     lento->prox = reverter_lista(segunda_metade);
 
     return eh_palin;
 }
 
-// Funções auxiliares
 No* novo_no(int valor) {
     No* no = (No*)malloc(sizeof(No));
     no->valor = valor;
